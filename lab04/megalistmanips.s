@@ -30,7 +30,9 @@ main:
     # issue the map call
     add a0, s0, x0      # load the address of the first node into a0
     la  a1, mystery     # load the address of the function into a1
-
+    
+    
+    
     jal map
 
     # print "lists after: "
@@ -44,18 +46,36 @@ main:
 
     li a0, 10
     ecall
+    
 
-map:
+# Mistake 5. The below code for storing values should be done before 
+# the function and only be done once.
+
+    
+
+# Parameters: a0 = address of the current node
+#             a1 =  address of function call, i.e., mystery
+
+# Registers modified:
+# s0, s1, t0, a0, t1, t2
+
+
+# Function description: Map all the elements in the array with 
+#                       the given function
+
+map: 
     addi sp, sp, -12
     sw ra, 0(sp)
     sw s1, 4(sp)
     sw s0, 8(sp)
 
-    beq a0, x0, done    # if we were given a null pointer, we're done.
+map2:
+    beq a0, x0, done    # if we were given a null pointer, we're done. OK
 
     add s0, a0, x0      # save address of this node in s0
     add s1, a1, x0      # save address of function in s1
     add t0, x0, x0      # t0 is a counter
+    add t4, x0, x0      # t4 is offset
 
     # remember that each node is 12 bytes long:
     # - 4 for the array pointer
@@ -65,23 +85,63 @@ map:
     # also keep in mind that we should not make ANY assumption on which registers
     # are modified by the callees, even when we know the content inside the functions 
     # we call. this is to enforce the abstraction barrier of calling convention.
+
+
+
+# Parameters:
+# s0 = a0(address of the current node), s1 = a1(address of the function mystery), t0 = 0(counter), t4 = 0 (offset, multiple of 4)
+
+# Function description: map one element in the array, break the loop when all are mapped
 mapLoop:
-    add t1, s0, x0      # load the address of the array of current node into t1
-    lw t2, 4(s0)        # load the size of the node's array into t2
+    lw t1, 0(s0)      # load the address of first element of the array of current node into t1
+    lw t2, 4(s0)        # load the size of the node's array into t2 ???
+    
+    
+    # So far, t1 = s0(address of the array of current node), t2 = size of the array in the current node
 
-    add t1, t1, t0      # offset the array address by the count
-    lw a0, 0(t1)        # load the value at that address into a0
+    
+    
+    # Mistake 1. Original code: add t1, t1, t0
+    add t1, t1, t4 # Get the address of the element, base + offset
+    # The above code is a replacement for the original code
+  
+    lw a0, 0(t1)        # load the value of the array element into a0
+    
+    # So far, t1 = address of the element of the array, a0 = value of the address in t1
 
-    jalr s1             # call the function on that value.
+    # Mistake 2. t1 is changed in the function mystery, should be saved before calling. Original code: jalr s1
+    addi sp, sp, -4
+    sw t1, 0(sp)
+    
+    jalr s1 # call the function on that value
+    lw t1, 0(sp)
+    addi sp, sp, 4 # Finish mapping
+    # Above code is my correction for mistake 2
+    
+    
 
     sw a0, 0(t1)        # store the returned value back into the array
+    
     addi t0, t0, 1      # increment the count
+    addi t4, t4, 4      # increment the offset
+    
     bne t0, t2, mapLoop # repeat if we haven't reached the array size yet
+    
+    # Otherwise, we do have iterated all elements in the array in the current node.
+    # We can then proceed to the next node. The parameters of the function map is: 
+    # a0 = address of the current node, a1 =  address of function call, i.e., mystery
+   
+    
+    # Mistake 3. original code: la a0, 8(s0)
+    lw a0, 8(s0)        # load the address of the next node into a0
+    
+    mv a1, s1           # put the address of the function back into a1 to prepare for the recursion
 
-    la a0, 8(s0)        # load the address of the next node into a0
-    lw a1, 0(s1)        # put the address of the function back into a1 to prepare for the recursion
-
-    jal  map            # recurse
+    
+    
+    # Mistake 4. Original code: jal map
+    j  map2            # recurse
+    
 done:
     lw s0, 8(sp)
     lw s1, 4(sp)
@@ -89,6 +149,9 @@ done:
     addi sp, sp, 12
     jr ra
 
+# Parameter: a0
+# Return: a0 = a0 ^ 2 + a0
+# Register modifed: t1
 mystery:
     mul t1, a0, a0
     add a0, t1, a0

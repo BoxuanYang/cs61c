@@ -72,11 +72,20 @@ main:
     ecall
 
 # f takes in two arguments:
-# a0 is the value we want to evaluate f at
+# a0 is the value we want to evaluate f at, [-3, 3]
 # a1 is the address of the "output" array (defined above).
 # Think: why might having a1 be useful?
+
+# output: .word   6, 61, 17, -38, 19, 42, 5
 f:
     # YOUR CODE GOES HERE!
+    
+    addi t1, a0, 3 # index of the element in array = 3 + a0, in [0, 6]
+    
+    slli t1, t1, 2 # t1 = offset
+    
+    add t1, a1, t1 # t1 = address of the element in array(base + offset)
+    lw a0, 0(t1)
 
     jr ra               # Always remember to jr ra after your function!
 
