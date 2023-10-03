@@ -1,0 +1,26 @@
+Ex 1:
+
+Key concepts:
+ setup time: when the input must be stable before rising edge
+ hold time: when the input must be stable after rising edge
+      
+Max clcok rate 
+= minimum time for a single instruction
+# CLK2Q delay should not be included
+= 60(mul delay) + 45(add delay) + 10(setup time) 
+= 115ns
+
+max clock cycle = 1 / (115ns) = 8.6 * 10^6 Hz
+
+Ex 2:
+  Maximum clcok rate
+= Minimum clock cycle
+
+T1 = 60(mul) + 10(setup) = 70
+T2 = 10(clk to q) + 45(add) + 10(setup) = 65
+
+Minimum clock cycle = max(T1, T2) = 70
+
+Hence, Max clock rate = 1/70ns = 14.29 * 10^6 Hz
+
+
