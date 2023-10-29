@@ -1,12 +1,12 @@
 Scenario 1
-    1.
-    2.
-    3.
+    1. Because the blocksize in bytes is exactly equal to step size in byte.
+    2. 0.0
+    3. Step size, 1. 
 
 Scenario 2
-    1.
-    2.
-    3.
+    1. 16. (256/4 = 64 words, 64/2 = 32 times, 32/ 2 = 16 misses)
+    2. MHHH. 
+    3. 1.0
 
 Scenario 3
     1.
@@ -17,8 +17,24 @@ Scenario 3
 
 --- lines below are ignored by the AG ---
 
-Checkoff Question 1:
+Checkoff Question 1: 
+Because the block size is exacly equal to step size in bytes and the 
+associativity is 1. Each time we increment the step, we overwrite the index-0
+block at the cache with the new element. Hence we will never have a hit.
+
 Checkoff Question 2:
+Step size and block size.
+
 Checkoff Question 3:
+Read first, miss, then write, hit, next, H, next write: hit
+
+
 Checkoff Question 4:
+Once we finish the first iteration, the whole array is copied to the cache.
+From now on, there will be no more misses, i.e., the total hits = 16. So hit 
+rate approaches 0 as rep count goes to infinity.
+
 Checkoff Question 5:
+In this scenario, we should try to modify the program such that during each
+iteration, we apply all the mapping functions to (blocksize / 4) number of 
+elements. 
