@@ -1,20 +1,27 @@
 --- not autograded ---
 
 Part 1
-    blocksize = 20, n = 100: 
-    blocksize = 20, n = 1000: 
-    blocksize = 20, n = 2000: 
-    blocksize = 20, n = 5000: 
-    blocksize = 20, n = 10000: 
+    blocksize = 20, n = 100: 0.003, 0.003
+    blocksize = 20, n = 1000: 0.747, 0.414
+    blocksize = 20, n = 2000: 8.071, 4.201
+    blocksize = 20, n = 5000: 112.67, 18.377
+    blocksize = 20, n = 10000: 557.836, 124.058
 
     Checkoff Question 1:
+    n = 1000
     Checkoff Question 2:
+    Because there is some overhead for running submatrices
+    blocks.
 
 Part 2
-    blocksize = 50, n = 10000:
-    blocksize = 100, n = 10000:
-    blocksize = 500, n = 10000:
-    blocksize = 1000, n = 10000:
-    blocksize = 5000, n = 10000:
+    blocksize = 50, n = 10000: 547.676, 86.658
+    blocksize = 100, n = 10000: 573.669, 81.938
+    blocksize = 500, n = 10000: 558.716, 75.302
+    blocksize = 1000, n = 10000: 560.455, 91.137
+    blocksize = 5000, n = 10000: 557.173, 517.176
 
     Checkoff Question 3:
+    The performance does not change much until blocksize
+    reaches 5000.
+
+    

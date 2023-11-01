@@ -13,22 +13,30 @@
    unfairly bias results (lower cases in switches must run through more
    case statements on each iteration).
 */
+
 void multMat1( int n, float *A, float *B, float *C ) {
     int i,j,k;
     /* This is ijk loop order. */
-    for( i = 0; i < n; i++ )
+
+    /*
+    Column-major array:
+    C[i][j] = C[j * n + i]
+    */
+    for( i = 0; i < n; i++ ) // Hit rate: high
         for( j = 0; j < n; j++ )
-            for( k = 0; k < n; k++ )
-                C[i+j*n] += A[i+k*n]*B[k+j*n];
+            for( k = 0; k < n; k++ ) // Hit rate: low
+                C[i+j*n] += A[i+k*n]*B[k+j*n];// C[i][j] = A[i][k] * B[k][j]
 }
 
 void multMat2( int n, float *A, float *B, float *C ) {
     int i,j,k;
     /* This is ikj loop order. */
-    for( i = 0; i < n; i++ )
-        for( k = 0; k < n; k++ )
+    
+
+    for( i = 0; i < n; i++ ) // Hit rate: High
+        for( k = 0; k < n; k++ ) // Hit rate: High
             for( j = 0; j < n; j++ )
-                C[i+j*n] += A[i+k*n]*B[k+j*n];
+                C[i+j*n] += A[i+k*n]*B[k+j*n];// C[i][j] = A[i][k] * B[k][j]
 }
 
 void multMat3( int n, float *A, float *B, float *C ) {
@@ -46,7 +54,7 @@ void multMat4( int n, float *A, float *B, float *C ) {
     for( j = 0; j < n; j++ )
         for( k = 0; k < n; k++ )
             for( i = 0; i < n; i++ )
-                C[i+j*n] += A[i+k*n]*B[k+j*n];
+                C[i+j*n] += A[i+k*n]*B[k+j*n];// C[i][j] = A[i][k] * B[k][j]
 }
 
 void multMat5( int n, float *A, float *B, float *C ) {

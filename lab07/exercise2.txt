@@ -1,8 +1,18 @@
-1.
-2.
+1. ikj, kij
+2. jki, kji
 
 --- lines below are ignored by the AG ---
 
 Checkoff Question 1:
+Because for each inner loop, A[i][k] can be viewed as a constant and C[i] array 
+and B[k] array has already been loaded into cache, resulting in high hit rate for
+both B and C. 
+
 Checkoff Question 2:
+Because for each inner loop, B[k][j] can be viewed as a constant. If we iterate
+i for C[i] and A[i], it would create low hit rate for both A and C.
+
 Checkoff Question 3:
+When we are writing programs, we should always think of how the cache would work
+according to our program. Best performance always come when we maximize the local 
+and temporal locality.
