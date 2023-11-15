@@ -1,19 +1,24 @@
 Exercise 1:
-    1.
-    2.
-    3.
+    1. 8
+    2. 3, 7, 0, 7
+    3. no, yes
 
 Exercise 2:
-    1.
+    1. 00, 20, 40, 60, 80, A0, C0, E0, 00, 20
 
 Exercise 3:
-    1.
+    1. Physical Memory size
 
 --- lines below are ignored by the AG ---
 
+
 Exercise 1 Checkoff Questions:
-    1.
-    2.
+    1. First, we look into the TLB. If there is a TLB miss,
+    then we go to the page table in memory. If we have a page
+    hit, then we go get the physical address in memory. Otherwise
+    we get a page fault, we need to go to the disk to grab the page.
+
+    2. Because the memory can only contain 4 pages.
 
 Exercise 4 Checkoff Question:
-    1.
+    1. Because the TLB is shared by multiple processes
