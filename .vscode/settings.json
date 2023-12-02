@@ -1,5 +1,7 @@
 {
     "files.associations": {
-        "time.h": "c"
-    }
+        "time.h": "c",
+        "x86intrin.h": "c"
+    },
+    "C_Cpp.errorSquiggles": "disabled"
 }
