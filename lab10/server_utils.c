@@ -1,6 +1,7 @@
 #include "server_utils.h"
 #include <unistd.h>
 
+
 char *header_tag_left = "<center><h1>";
 char *header_tag_right = "</h1><hr></center>";
 char *content_type = "Content-Type";
@@ -198,6 +199,9 @@ void dispatch(int client_socket_number) {
    sleep(5);      // Pretending we are doing some heavy computation...
 }
 
+
+
+// TODO
 /** Open a TCP socket on all interfaces. *socket_number stores
  * the fd number of the server socket in call request_handler
  * with the accepted socket fd number on an accepted connection.*/
@@ -250,15 +254,23 @@ void serve_forever(int *socket_number) {
              inet_ntoa(client_address.sin_addr), client_address.sin_port);
 
       pid_t parent_pid = getpid();
+
 #ifdef PROC
       // PART 2 TASK: Implement forking
       /* YOUR CODE HERE */
+      printf("HAHAHAHA \n");
+      
 
-      if (/* YOUR CODE HERE */) {
+      pid_t child_pid = fork();
+
+      // This condition means only child process will execute this
+      if(child_pid == 0) {
          // This line kills the child process if parent dies
          int r = prctl(PR_SET_PDEATHSIG, SIGTERM);
 
          /* YOUR CODE HERE */
+         dispatch(client_socket_number);
+
          
          // These lines exit the current process with code 1 
          // 1) when there was an error in prctl, 2) when the parent has been killed
@@ -268,9 +280,11 @@ void serve_forever(int *socket_number) {
          }
 
          /* YOUR CODE HERE */
+         exit(0);
       }
 #else
       dispatch(client_socket_number);
+      printf("HIAHIAHIA");
 #endif
    }
 }

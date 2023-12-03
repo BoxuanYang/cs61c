@@ -1,10 +1,10 @@
 #include <stdio.h>
-#include <omp.h>
+#include <stdlib.h>
 
 int main() {
-	#pragma omp parallel
-	{
-		int thread_ID = omp_get_thread_num();
-		printf(" hello world %d\n", thread_ID);
-	}
+	printf("Hello world 1. \n");
+
+	exit(0);
+
+	printf("Hello world 2. \n");
 }
