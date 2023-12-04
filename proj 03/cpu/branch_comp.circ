@@ -260,6 +260,14 @@ end TCL_Generic;
     <comp lib="8" loc="(156,94)" name="Text">
       <a name="text" val="INPUTS to your circuit"/>
     </comp>
+    <comp lib="8" loc="(263,447)" name="Text">
+      <a name="font" val="SansSerif plain 12"/>
+      <a name="text" val="Signed comparator"/>
+    </comp>
+    <comp lib="8" loc="(279,629)" name="Text">
+      <a name="font" val="SansSerif plain 12"/>
+      <a name="text" val="Unsigned comparator"/>
+    </comp>
     <comp lib="8" loc="(562,43)" name="Text">
       <a name="text" val="DON'T CHANGE THE LOCATIONS OF THE INPUTS AND OUTPUTS!"/>
     </comp>

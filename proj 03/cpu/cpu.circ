@@ -176,10 +176,10 @@ end TCL_Generic;
     <tool lib="1" name="NOR Gate"/>
     <sep/>
     <tool lib="4" name="D Flip-Flop">
-      <a name="appearance" val="logisim_evolution"/>
+      <a name="appearance" val="classic"/>
     </tool>
     <tool lib="4" name="Register">
-      <a name="appearance" val="logisim_evolution"/>
+      <a name="appearance" val="classic"/>
     </tool>
   </toolbar>
   <circuit name="cpu">
@@ -190,42 +190,29 @@ end TCL_Generic;
     <a name="clabel" val=""/>
     <a name="clabelfont" val="SansSerif bold 16"/>
     <a name="clabelup" val="east"/>
-    <comp lib="0" loc="(100,990)" name="Tunnel">
-      <a name="facing" val="east"/>
-      <a name="label" val="WBSel"/>
-      <a name="width" val="2"/>
+    <comp lib="0" loc="(1010,2030)" name="Tunnel">
+      <a name="facing" val="south"/>
+      <a name="label" val="MemRW"/>
     </comp>
-    <comp lib="0" loc="(1020,400)" name="Tunnel">
+    <comp lib="0" loc="(1020,460)" name="Tunnel">
       <a name="label" val="ra"/>
       <a name="width" val="32"/>
     </comp>
-    <comp lib="0" loc="(1020,430)" name="Tunnel">
-      <a name="label" val="sp"/>
-      <a name="width" val="32"/>
-    </comp>
-    <comp lib="0" loc="(1020,460)" name="Tunnel">
+    <comp lib="0" loc="(1020,500)" name="Tunnel">
       <a name="label" val="t0"/>
       <a name="width" val="32"/>
     </comp>
-    <comp lib="0" loc="(1020,490)" name="Tunnel">
-      <a name="label" val="t1"/>
-      <a name="width" val="32"/>
-    </comp>
-    <comp lib="0" loc="(1020,520)" name="Tunnel">
+    <comp lib="0" loc="(1020,540)" name="Tunnel">
       <a name="label" val="t2"/>
-      <a name="width" val="32"/>
-    </comp>
-    <comp lib="0" loc="(1020,550)" name="Tunnel">
-      <a name="label" val="s0"/>
       <a name="width" val="32"/>
     </comp>
     <comp lib="0" loc="(1020,580)" name="Tunnel">
       <a name="label" val="s1"/>
       <a name="width" val="32"/>
     </comp>
-    <comp lib="0" loc="(1020,610)" name="Tunnel">
-      <a name="label" val="a0"/>
-      <a name="width" val="32"/>
+    <comp lib="0" loc="(1020,790)" name="Tunnel">
+      <a name="facing" val="east"/>
+      <a name="label" val="BrUn"/>
     </comp>
     <comp lib="0" loc="(1050,190)" name="Pin">
       <a name="facing" val="south"/>
@@ -238,6 +225,44 @@ end TCL_Generic;
       <a name="label" val="t0"/>
       <a name="width" val="32"/>
     </comp>
+    <comp lib="0" loc="(1060,2070)" name="Tunnel">
+      <a name="facing" val="south"/>
+      <a name="label" val="WBSel"/>
+      <a name="width" val="2"/>
+    </comp>
+    <comp lib="0" loc="(1070,1230)" name="Tunnel">
+      <a name="label" val="Write_data"/>
+      <a name="width" val="32"/>
+    </comp>
+    <comp lib="0" loc="(1070,750)" name="Tunnel">
+      <a name="facing" val="east"/>
+      <a name="label" val="Read_Data_1"/>
+      <a name="width" val="32"/>
+    </comp>
+    <comp lib="0" loc="(1080,480)" name="Tunnel">
+      <a name="label" val="sp"/>
+      <a name="width" val="32"/>
+    </comp>
+    <comp lib="0" loc="(1080,520)" name="Tunnel">
+      <a name="label" val="t1"/>
+      <a name="width" val="32"/>
+    </comp>
+    <comp lib="0" loc="(1080,560)" name="Tunnel">
+      <a name="label" val="s0"/>
+      <a name="width" val="32"/>
+    </comp>
+    <comp lib="0" loc="(1080,600)" name="Tunnel">
+      <a name="label" val="a0"/>
+      <a name="width" val="32"/>
+    </comp>
+    <comp lib="0" loc="(1110,2110)" name="Tunnel">
+      <a name="facing" val="south"/>
+      <a name="label" val="CSRSel"/>
+    </comp>
+    <comp lib="0" loc="(1130,620)" name="Tunnel">
+      <a name="label" val="Read_Data_1"/>
+      <a name="width" val="32"/>
+    </comp>
     <comp lib="0" loc="(1140,190)" name="Pin">
       <a name="facing" val="south"/>
       <a name="label" val="t1"/>
@@ -248,6 +273,10 @@ end TCL_Generic;
       <a name="facing" val="north"/>
       <a name="label" val="t1"/>
       <a name="width" val="32"/>
+    </comp>
+    <comp lib="0" loc="(1160,2170)" name="Tunnel">
+      <a name="facing" val="south"/>
+      <a name="label" val="CSRWen"/>
     </comp>
     <comp lib="0" loc="(1230,190)" name="Pin">
       <a name="facing" val="south"/>
@@ -271,9 +300,12 @@ end TCL_Generic;
       <a name="label" val="s0"/>
       <a name="width" val="32"/>
     </comp>
-    <comp lib="0" loc="(1330,1360)" name="Tunnel">
-      <a name="label" val="tohost"/>
-      <a name="width" val="32"/>
+    <comp lib="0" loc="(1370,750)" name="Tunnel">
+      <a name="label" val="BrEq"/>
+    </comp>
+    <comp lib="0" loc="(140,1160)" name="Tunnel">
+      <a name="facing" val="east"/>
+      <a name="label" val="clk"/>
     </comp>
     <comp lib="0" loc="(1410,190)" name="Pin">
       <a name="facing" val="south"/>
@@ -284,6 +316,19 @@ end TCL_Generic;
     <comp lib="0" loc="(1410,220)" name="Tunnel">
       <a name="facing" val="north"/>
       <a name="label" val="s1"/>
+      <a name="width" val="32"/>
+    </comp>
+    <comp lib="0" loc="(1420,770)" name="Tunnel">
+      <a name="label" val="BrLt"/>
+    </comp>
+    <comp lib="0" loc="(1470,1010)" name="Tunnel">
+      <a name="facing" val="east"/>
+      <a name="label" val="Read_Data_1"/>
+      <a name="width" val="32"/>
+    </comp>
+    <comp lib="0" loc="(1470,1130)" name="Tunnel">
+      <a name="facing" val="east"/>
+      <a name="label" val="Read_Data_2"/>
       <a name="width" val="32"/>
     </comp>
     <comp lib="0" loc="(1500,190)" name="Pin">
@@ -297,6 +342,10 @@ end TCL_Generic;
       <a name="label" val="a0"/>
       <a name="width" val="32"/>
     </comp>
+    <comp lib="0" loc="(1520,1980)" name="Tunnel">
+      <a name="label" val="tohost"/>
+      <a name="width" val="32"/>
+    </comp>
     <comp lib="0" loc="(1590,190)" name="Pin">
       <a name="facing" val="south"/>
       <a name="label" val="tohost"/>
@@ -308,10 +357,33 @@ end TCL_Generic;
       <a name="label" val="tohost"/>
       <a name="width" val="32"/>
     </comp>
-    <comp lib="0" loc="(160,990)" name="Constant">
-      <a name="facing" val="west"/>
-      <a name="value" val="0x0"/>
-      <a name="width" val="2"/>
+    <comp lib="0" loc="(1610,1150)" name="Tunnel">
+      <a name="facing" val="east"/>
+      <a name="label" val="imm"/>
+      <a name="width" val="32"/>
+    </comp>
+    <comp lib="0" loc="(1680,1030)" name="Tunnel">
+      <a name="facing" val="east"/>
+      <a name="label" val="PROGRAM_COUNTER"/>
+      <a name="width" val="32"/>
+    </comp>
+    <comp lib="0" loc="(1700,1070)" name="Tunnel">
+      <a name="facing" val="north"/>
+      <a name="label" val="ASel"/>
+    </comp>
+    <comp lib="0" loc="(1700,1200)" name="Tunnel">
+      <a name="facing" val="north"/>
+      <a name="label" val="BSel"/>
+    </comp>
+    <comp lib="0" loc="(180,1120)" name="Tunnel">
+      <a name="facing" val="east"/>
+      <a name="label" val="INSTRUCTION"/>
+      <a name="width" val="32"/>
+    </comp>
+    <comp lib="0" loc="(180,850)" name="Tunnel">
+      <a name="facing" val="east"/>
+      <a name="label" val="INSTRUCTION_2"/>
+      <a name="width" val="32"/>
     </comp>
     <comp lib="0" loc="(1810,130)" name="Tunnel">
       <a name="facing" val="east"/>
@@ -327,6 +399,11 @@ end TCL_Generic;
       <a name="facing" val="east"/>
       <a name="label" val="WRITE_DATA"/>
       <a name="width" val="32"/>
+    </comp>
+    <comp lib="0" loc="(1840,1430)" name="Tunnel">
+      <a name="facing" val="north"/>
+      <a name="label" val="ALUSel"/>
+      <a name="width" val="4"/>
     </comp>
     <comp lib="0" loc="(1880,130)" name="Pin">
       <a name="facing" val="west"/>
@@ -351,95 +428,11 @@ end TCL_Generic;
       <a name="label" val="PROGRAM_COUNTER"/>
       <a name="width" val="32"/>
     </comp>
-    <comp lib="0" loc="(190,660)" name="Tunnel">
-      <a name="facing" val="east"/>
-      <a name="label" val="INSTRUCTION"/>
+    <comp lib="0" loc="(1930,1080)" name="Tunnel">
+      <a name="label" val="ALU_output"/>
       <a name="width" val="32"/>
     </comp>
-    <comp lib="0" loc="(200,570)" name="Tunnel">
-      <a name="facing" val="east"/>
-      <a name="label" val="clk"/>
-    </comp>
-    <comp lib="0" loc="(2190,230)" name="Pin">
-      <a name="label" val="READ_DATA"/>
-      <a name="width" val="32"/>
-    </comp>
-    <comp lib="0" loc="(2230,230)" name="Tunnel">
-      <a name="label" val="READ_DATA"/>
-      <a name="width" val="32"/>
-    </comp>
-    <comp lib="0" loc="(250,150)" name="Pin">
-      <a name="facing" val="west"/>
-      <a name="label" val="PROGRAM_COUNTER"/>
-      <a name="output" val="true"/>
-      <a name="width" val="32"/>
-    </comp>
-    <comp lib="0" loc="(340,530)" name="Tunnel">
-      <a name="label" val="PROGRAM_COUNTER"/>
-      <a name="width" val="32"/>
-    </comp>
-    <comp lib="0" loc="(350,660)" name="Tunnel">
-      <a name="label" val="INSTRUCTION_2"/>
-      <a name="width" val="32"/>
-    </comp>
-    <comp lib="0" loc="(520,200)" name="Pin">
-      <a name="label" val="INSTRUCTION"/>
-      <a name="width" val="32"/>
-    </comp>
-    <comp lib="0" loc="(550,730)" name="Tunnel">
-      <a name="facing" val="north"/>
-      <a name="label" val="WBSel"/>
-      <a name="width" val="2"/>
-    </comp>
-    <comp lib="0" loc="(580,460)" name="Tunnel">
-      <a name="facing" val="east"/>
-      <a name="label" val="rs1"/>
-      <a name="width" val="5"/>
-    </comp>
-    <comp lib="0" loc="(580,500)" name="Tunnel">
-      <a name="facing" val="east"/>
-      <a name="label" val="rd"/>
-      <a name="width" val="5"/>
-    </comp>
-    <comp lib="0" loc="(600,200)" name="Tunnel">
-      <a name="label" val="INSTRUCTION"/>
-      <a name="width" val="32"/>
-    </comp>
-    <comp lib="0" loc="(680,540)" name="Constant"/>
-    <comp lib="0" loc="(700,600)" name="Tunnel">
-      <a name="facing" val="east"/>
-      <a name="label" val="clk"/>
-    </comp>
-    <comp lib="0" loc="(710,840)" name="Tunnel">
-      <a name="facing" val="east"/>
-      <a name="label" val="INSTRUCTION_2"/>
-      <a name="width" val="32"/>
-    </comp>
-    <comp lib="0" loc="(790,130)" name="Pin">
-      <a name="facing" val="south"/>
-      <a name="label" val="clk"/>
-    </comp>
-    <comp lib="0" loc="(790,220)" name="Tunnel">
-      <a name="facing" val="north"/>
-      <a name="label" val="clk"/>
-    </comp>
-    <comp lib="0" loc="(860,1210)" name="Tunnel">
-      <a name="facing" val="east"/>
-      <a name="label" val="INSTRUCTION_2"/>
-      <a name="width" val="32"/>
-    </comp>
-    <comp lib="0" loc="(870,190)" name="Pin">
-      <a name="facing" val="south"/>
-      <a name="label" val="ra"/>
-      <a name="output" val="true"/>
-      <a name="width" val="32"/>
-    </comp>
-    <comp lib="0" loc="(870,220)" name="Tunnel">
-      <a name="facing" val="north"/>
-      <a name="label" val="ra"/>
-      <a name="width" val="32"/>
-    </comp>
-    <comp lib="0" loc="(880,1210)" name="Splitter">
+    <comp lib="0" loc="(200,850)" name="Splitter">
       <a name="appear" val="center"/>
       <a name="bit1" val="0"/>
       <a name="bit10" val="1"/>
@@ -458,35 +451,191 @@ end TCL_Generic;
       <a name="bit22" val="4"/>
       <a name="bit23" val="4"/>
       <a name="bit24" val="4"/>
-      <a name="bit25" val="4"/>
-      <a name="bit26" val="4"/>
-      <a name="bit27" val="4"/>
-      <a name="bit28" val="4"/>
-      <a name="bit29" val="4"/>
+      <a name="bit25" val="5"/>
+      <a name="bit26" val="5"/>
+      <a name="bit27" val="5"/>
+      <a name="bit28" val="5"/>
+      <a name="bit29" val="5"/>
       <a name="bit3" val="0"/>
-      <a name="bit30" val="4"/>
-      <a name="bit31" val="4"/>
+      <a name="bit30" val="5"/>
+      <a name="bit31" val="5"/>
       <a name="bit4" val="0"/>
       <a name="bit5" val="0"/>
       <a name="bit6" val="0"/>
       <a name="bit7" val="1"/>
       <a name="bit8" val="1"/>
       <a name="bit9" val="1"/>
-      <a name="fanout" val="5"/>
+      <a name="fanout" val="6"/>
       <a name="incoming" val="32"/>
       <a name="spacing" val="5"/>
     </comp>
-    <comp lib="0" loc="(90,540)" name="Constant">
-      <a name="value" val="0x4"/>
+    <comp lib="0" loc="(210,1360)" name="Tunnel">
+      <a name="facing" val="east"/>
+      <a name="label" val="clk"/>
+    </comp>
+    <comp lib="0" loc="(2190,230)" name="Pin">
+      <a name="label" val="READ_DATA"/>
       <a name="width" val="32"/>
     </comp>
-    <comp lib="0" loc="(940,1160)" name="Tunnel">
+    <comp lib="0" loc="(2230,230)" name="Tunnel">
+      <a name="label" val="READ_DATA"/>
+      <a name="width" val="32"/>
+    </comp>
+    <comp lib="0" loc="(250,150)" name="Pin">
+      <a name="facing" val="west"/>
+      <a name="label" val="PROGRAM_COUNTER"/>
+      <a name="output" val="true"/>
+      <a name="width" val="32"/>
+    </comp>
+    <comp lib="0" loc="(270,750)" name="Tunnel">
       <a name="label" val="rd"/>
       <a name="width" val="5"/>
     </comp>
-    <comp lib="0" loc="(940,1260)" name="Tunnel">
+    <comp lib="0" loc="(270,850)" name="Tunnel">
       <a name="label" val="rs1"/>
       <a name="width" val="5"/>
+    </comp>
+    <comp lib="0" loc="(270,900)" name="Tunnel">
+      <a name="label" val="rs2"/>
+      <a name="width" val="5"/>
+    </comp>
+    <comp lib="0" loc="(340,1120)" name="Tunnel">
+      <a name="label" val="INSTRUCTION_2"/>
+      <a name="width" val="32"/>
+    </comp>
+    <comp lib="0" loc="(350,1320)" name="Tunnel">
+      <a name="label" val="PROGRAM_COUNTER"/>
+      <a name="width" val="32"/>
+    </comp>
+    <comp lib="0" loc="(470,870)" name="Tunnel">
+      <a name="facing" val="east"/>
+      <a name="label" val="ImmSel"/>
+      <a name="width" val="3"/>
+    </comp>
+    <comp lib="0" loc="(520,200)" name="Pin">
+      <a name="label" val="INSTRUCTION"/>
+      <a name="width" val="32"/>
+    </comp>
+    <comp lib="0" loc="(530,520)" name="Tunnel">
+      <a name="facing" val="east"/>
+      <a name="label" val="Write_data"/>
+      <a name="width" val="32"/>
+    </comp>
+    <comp lib="0" loc="(570,500)" name="Tunnel">
+      <a name="facing" val="east"/>
+      <a name="label" val="rd"/>
+      <a name="width" val="5"/>
+    </comp>
+    <comp lib="0" loc="(580,460)" name="Tunnel">
+      <a name="facing" val="east"/>
+      <a name="label" val="rs1"/>
+      <a name="width" val="5"/>
+    </comp>
+    <comp lib="0" loc="(600,200)" name="Tunnel">
+      <a name="label" val="INSTRUCTION"/>
+      <a name="width" val="32"/>
+    </comp>
+    <comp lib="0" loc="(600,2000)" name="Tunnel">
+      <a name="facing" val="south"/>
+      <a name="label" val="INSTRUCTION_2"/>
+      <a name="width" val="32"/>
+    </comp>
+    <comp lib="0" loc="(630,480)" name="Tunnel">
+      <a name="facing" val="east"/>
+      <a name="label" val="rs2"/>
+      <a name="width" val="5"/>
+    </comp>
+    <comp lib="0" loc="(630,850)" name="Tunnel">
+      <a name="facing" val="east"/>
+      <a name="label" val="INSTRUCTION_2"/>
+      <a name="width" val="32"/>
+    </comp>
+    <comp lib="0" loc="(650,2040)" name="Tunnel">
+      <a name="facing" val="south"/>
+      <a name="label" val="PCSel"/>
+    </comp>
+    <comp lib="0" loc="(670,540)" name="Tunnel">
+      <a name="facing" val="east"/>
+      <a name="label" val="RegWEn"/>
+    </comp>
+    <comp lib="0" loc="(700,2080)" name="Tunnel">
+      <a name="facing" val="south"/>
+      <a name="label" val="RegWEn"/>
+    </comp>
+    <comp lib="0" loc="(710,1210)" name="Tunnel">
+      <a name="facing" val="east"/>
+      <a name="label" val="ALU_output"/>
+      <a name="width" val="32"/>
+    </comp>
+    <comp lib="0" loc="(710,560)" name="Tunnel">
+      <a name="facing" val="east"/>
+      <a name="label" val="clk"/>
+    </comp>
+    <comp lib="0" loc="(750,2130)" name="Tunnel">
+      <a name="facing" val="south"/>
+      <a name="label" val="ImmSel"/>
+      <a name="width" val="3"/>
+    </comp>
+    <comp lib="0" loc="(790,130)" name="Pin">
+      <a name="facing" val="south"/>
+      <a name="label" val="clk"/>
+    </comp>
+    <comp lib="0" loc="(790,220)" name="Tunnel">
+      <a name="facing" val="north"/>
+      <a name="label" val="clk"/>
+    </comp>
+    <comp lib="0" loc="(800,2050)" name="Tunnel">
+      <a name="facing" val="south"/>
+      <a name="label" val="BrEq"/>
+    </comp>
+    <comp lib="0" loc="(830,2110)" name="Tunnel">
+      <a name="facing" val="south"/>
+      <a name="label" val="BrLt"/>
+    </comp>
+    <comp lib="0" loc="(860,2150)" name="Tunnel">
+      <a name="facing" val="south"/>
+      <a name="label" val="BrUn"/>
+    </comp>
+    <comp lib="0" loc="(870,190)" name="Pin">
+      <a name="facing" val="south"/>
+      <a name="label" val="ra"/>
+      <a name="output" val="true"/>
+      <a name="width" val="32"/>
+    </comp>
+    <comp lib="0" loc="(870,220)" name="Tunnel">
+      <a name="facing" val="north"/>
+      <a name="label" val="ra"/>
+      <a name="width" val="32"/>
+    </comp>
+    <comp lib="0" loc="(880,850)" name="Tunnel">
+      <a name="label" val="imm"/>
+      <a name="width" val="32"/>
+    </comp>
+    <comp lib="0" loc="(890,2020)" name="Tunnel">
+      <a name="facing" val="south"/>
+      <a name="label" val="ASel"/>
+    </comp>
+    <comp lib="0" loc="(90,1330)" name="Constant">
+      <a name="value" val="0x4"/>
+      <a name="width" val="32"/>
+    </comp>
+    <comp lib="0" loc="(920,2050)" name="Tunnel">
+      <a name="facing" val="south"/>
+      <a name="label" val="BSel"/>
+    </comp>
+    <comp lib="0" loc="(930,770)" name="Tunnel">
+      <a name="facing" val="east"/>
+      <a name="label" val="Read_Data_2"/>
+      <a name="width" val="32"/>
+    </comp>
+    <comp lib="0" loc="(950,640)" name="Tunnel">
+      <a name="label" val="Read_Data_2"/>
+      <a name="width" val="32"/>
+    </comp>
+    <comp lib="0" loc="(960,1380)" name="Tunnel">
+      <a name="facing" val="north"/>
+      <a name="label" val="WBSel"/>
+      <a name="width" val="2"/>
     </comp>
     <comp lib="0" loc="(960,190)" name="Pin">
       <a name="facing" val="south"/>
@@ -494,33 +643,45 @@ end TCL_Generic;
       <a name="output" val="true"/>
       <a name="width" val="32"/>
     </comp>
+    <comp lib="0" loc="(960,2000)" name="Tunnel">
+      <a name="facing" val="south"/>
+      <a name="label" val="ALUSel"/>
+      <a name="width" val="4"/>
+    </comp>
     <comp lib="0" loc="(960,220)" name="Tunnel">
       <a name="facing" val="north"/>
       <a name="label" val="sp"/>
       <a name="width" val="32"/>
     </comp>
-    <comp lib="12" loc="(1170,780)" name="alu"/>
+    <comp lib="12" loc="(1880,1080)" name="alu"/>
     <comp lib="13" loc="(940,460)" name="regfile"/>
-    <comp lib="14" loc="(540,1470)" name="control_logic"/>
-    <comp lib="15" loc="(900,1380)" name="branch_comp"/>
-    <comp lib="16" loc="(970,840)" name="imm_gen"/>
-    <comp lib="17" loc="(1290,1360)" name="csr"/>
-    <comp lib="2" loc="(610,550)" name="Multiplexer">
+    <comp lib="14" loc="(650,2220)" name="control_logic"/>
+    <comp lib="15" loc="(1350,750)" name="branch_comp"/>
+    <comp lib="16" loc="(860,850)" name="imm_gen"/>
+    <comp lib="17" loc="(1480,1980)" name="csr"/>
+    <comp lib="2" loc="(1720,1020)" name="Multiplexer">
       <a name="enable" val="false"/>
-      <a name="facing" val="north"/>
+      <a name="width" val="32"/>
+    </comp>
+    <comp lib="2" loc="(1720,1140)" name="Multiplexer">
+      <a name="enable" val="false"/>
+      <a name="width" val="32"/>
+    </comp>
+    <comp lib="2" loc="(980,1230)" name="Multiplexer">
+      <a name="enable" val="false"/>
       <a name="select" val="2"/>
       <a name="width" val="32"/>
     </comp>
-    <comp lib="3" loc="(160,530)" name="Adder">
+    <comp lib="3" loc="(170,1320)" name="Adder">
       <a name="width" val="32"/>
     </comp>
-    <comp lib="4" loc="(230,500)" name="Register">
+    <comp lib="4" loc="(240,1090)" name="Register">
+      <a name="appearance" val="logisim_evolution"/>
+      <a name="width" val="32"/>
+    </comp>
+    <comp lib="4" loc="(240,1290)" name="Register">
       <a name="appearance" val="logisim_evolution"/>
       <a name="label" val="PC"/>
-      <a name="width" val="32"/>
-    </comp>
-    <comp lib="4" loc="(250,630)" name="Register">
-      <a name="appearance" val="logisim_evolution"/>
       <a name="width" val="32"/>
     </comp>
     <comp lib="8" loc="(1193,68)" name="Text">
@@ -551,34 +712,45 @@ end TCL_Generic;
       <a name="font" val="SansSerif plain 22"/>
       <a name="text" val="It is OK to move the PC, RegFile, ALU, MEM, Branch Comp, Imm Gen, and Control Logic to wherever is most convenient for you when constructing your CPU, and to delete this text"/>
     </comp>
-    <wire from="(100,990)" to="(160,990)"/>
-    <wire from="(1000,520)" to="(1000,540)"/>
-    <wire from="(1000,520)" to="(1020,520)"/>
-    <wire from="(1000,550)" to="(1000,560)"/>
-    <wire from="(1000,550)" to="(1020,550)"/>
-    <wire from="(1000,620)" to="(1000,720)"/>
-    <wire from="(1000,720)" to="(1090,720)"/>
-    <wire from="(1010,600)" to="(1010,610)"/>
-    <wire from="(1010,610)" to="(1020,610)"/>
+    <wire from="(100,1220)" to="(100,1310)"/>
+    <wire from="(100,1220)" to="(330,1220)"/>
+    <wire from="(100,1310)" to="(130,1310)"/>
+    <wire from="(1010,2030)" to="(1010,2220)"/>
+    <wire from="(1020,790)" to="(1130,790)"/>
     <wire from="(1050,190)" to="(1050,220)"/>
+    <wire from="(1060,2070)" to="(1060,2220)"/>
     <wire from="(1070,210)" to="(1120,210)"/>
+    <wire from="(1070,750)" to="(1130,750)"/>
+    <wire from="(1110,2110)" to="(1110,2220)"/>
     <wire from="(1140,190)" to="(1140,220)"/>
     <wire from="(1160,210)" to="(1210,210)"/>
-    <wire from="(1170,780)" to="(1210,780)"/>
-    <wire from="(1210,380)" to="(1210,780)"/>
+    <wire from="(1160,2170)" to="(1160,2220)"/>
     <wire from="(1230,190)" to="(1230,220)"/>
     <wire from="(1250,210)" to="(1300,210)"/>
-    <wire from="(1290,1360)" to="(1330,1360)"/>
     <wire from="(1320,190)" to="(1320,220)"/>
     <wire from="(1340,210)" to="(1390,210)"/>
+    <wire from="(1350,750)" to="(1370,750)"/>
+    <wire from="(1350,770)" to="(1420,770)"/>
+    <wire from="(140,1160)" to="(240,1160)"/>
     <wire from="(1410,190)" to="(1410,220)"/>
     <wire from="(1430,210)" to="(1480,210)"/>
+    <wire from="(1470,1010)" to="(1690,1010)"/>
+    <wire from="(1470,1130)" to="(1690,1130)"/>
+    <wire from="(1480,1980)" to="(1520,1980)"/>
     <wire from="(1500,190)" to="(1500,220)"/>
     <wire from="(1520,210)" to="(1570,210)"/>
     <wire from="(1590,190)" to="(1590,220)"/>
-    <wire from="(160,530)" to="(230,530)"/>
+    <wire from="(1610,1150)" to="(1690,1150)"/>
     <wire from="(1610,210)" to="(1650,210)"/>
     <wire from="(1650,90)" to="(1650,210)"/>
+    <wire from="(1680,1030)" to="(1690,1030)"/>
+    <wire from="(170,1320)" to="(240,1320)"/>
+    <wire from="(1700,1040)" to="(1700,1070)"/>
+    <wire from="(1700,1160)" to="(1700,1200)"/>
+    <wire from="(1720,1020)" to="(1800,1020)"/>
+    <wire from="(1720,1140)" to="(1800,1140)"/>
+    <wire from="(180,1120)" to="(240,1120)"/>
+    <wire from="(180,850)" to="(200,850)"/>
     <wire from="(1810,130)" to="(1880,130)"/>
     <wire from="(1820,200)" to="(1880,200)"/>
     <wire from="(1820,270)" to="(1880,270)"/>
@@ -588,75 +760,71 @@ end TCL_Generic;
     <wire from="(1830,330)" to="(2220,330)"/>
     <wire from="(1830,50)" to="(1830,110)"/>
     <wire from="(1830,50)" to="(2220,50)"/>
+    <wire from="(1840,1180)" to="(1840,1430)"/>
+    <wire from="(1880,1080)" to="(1930,1080)"/>
     <wire from="(190,150)" to="(250,150)"/>
-    <wire from="(190,660)" to="(250,660)"/>
     <wire from="(200,170)" to="(200,240)"/>
     <wire from="(200,240)" to="(380,240)"/>
-    <wire from="(200,570)" to="(220,570)"/>
     <wire from="(200,70)" to="(200,130)"/>
     <wire from="(200,70)" to="(590,70)"/>
+    <wire from="(210,1360)" to="(240,1360)"/>
     <wire from="(2190,230)" to="(2230,230)"/>
-    <wire from="(220,570)" to="(220,700)"/>
-    <wire from="(220,570)" to="(230,570)"/>
-    <wire from="(220,700)" to="(250,700)"/>
+    <wire from="(220,750)" to="(270,750)"/>
+    <wire from="(220,850)" to="(270,850)"/>
+    <wire from="(220,900)" to="(270,900)"/>
     <wire from="(2220,250)" to="(2220,330)"/>
     <wire from="(2220,50)" to="(2220,210)"/>
-    <wire from="(290,530)" to="(320,530)"/>
-    <wire from="(310,660)" to="(350,660)"/>
-    <wire from="(320,430)" to="(320,530)"/>
-    <wire from="(320,530)" to="(340,530)"/>
+    <wire from="(300,1120)" to="(340,1120)"/>
+    <wire from="(300,1320)" to="(330,1320)"/>
+    <wire from="(330,1220)" to="(330,1320)"/>
+    <wire from="(330,1320)" to="(350,1320)"/>
     <wire from="(380,240)" to="(380,260)"/>
     <wire from="(380,260)" to="(590,260)"/>
+    <wire from="(470,870)" to="(640,870)"/>
     <wire from="(520,200)" to="(600,200)"/>
-    <wire from="(530,380)" to="(1210,380)"/>
-    <wire from="(530,380)" to="(530,600)"/>
-    <wire from="(530,600)" to="(590,600)"/>
-    <wire from="(550,570)" to="(550,730)"/>
-    <wire from="(550,570)" to="(590,570)"/>
+    <wire from="(530,520)" to="(720,520)"/>
+    <wire from="(570,500)" to="(720,500)"/>
     <wire from="(580,460)" to="(720,460)"/>
-    <wire from="(580,500)" to="(720,500)"/>
     <wire from="(590,220)" to="(590,260)"/>
-    <wire from="(590,590)" to="(590,600)"/>
     <wire from="(590,70)" to="(590,180)"/>
-    <wire from="(610,520)" to="(610,550)"/>
-    <wire from="(610,520)" to="(720,520)"/>
-    <wire from="(680,540)" to="(720,540)"/>
-    <wire from="(700,600)" to="(720,600)"/>
-    <wire from="(710,840)" to="(750,840)"/>
-    <wire from="(720,560)" to="(720,600)"/>
+    <wire from="(600,2000)" to="(600,2220)"/>
+    <wire from="(630,480)" to="(720,480)"/>
+    <wire from="(630,850)" to="(640,850)"/>
+    <wire from="(650,2040)" to="(650,2220)"/>
+    <wire from="(670,540)" to="(720,540)"/>
+    <wire from="(700,2080)" to="(700,2220)"/>
+    <wire from="(710,1210)" to="(940,1210)"/>
+    <wire from="(710,560)" to="(720,560)"/>
+    <wire from="(750,2130)" to="(750,2220)"/>
     <wire from="(760,210)" to="(770,210)"/>
     <wire from="(760,90)" to="(1650,90)"/>
     <wire from="(760,90)" to="(760,210)"/>
     <wire from="(790,130)" to="(790,220)"/>
+    <wire from="(800,2050)" to="(800,2220)"/>
     <wire from="(810,210)" to="(850,210)"/>
-    <wire from="(860,1210)" to="(880,1210)"/>
+    <wire from="(830,2110)" to="(830,2220)"/>
+    <wire from="(860,2150)" to="(860,2220)"/>
+    <wire from="(860,850)" to="(880,850)"/>
     <wire from="(870,190)" to="(870,220)"/>
+    <wire from="(890,2020)" to="(890,2220)"/>
     <wire from="(890,210)" to="(940,210)"/>
-    <wire from="(90,430)" to="(320,430)"/>
-    <wire from="(90,430)" to="(90,520)"/>
-    <wire from="(90,520)" to="(120,520)"/>
-    <wire from="(90,540)" to="(120,540)"/>
-    <wire from="(900,1160)" to="(940,1160)"/>
-    <wire from="(900,1260)" to="(940,1260)"/>
-    <wire from="(940,460)" to="(950,460)"/>
-    <wire from="(940,480)" to="(960,480)"/>
-    <wire from="(940,500)" to="(970,500)"/>
-    <wire from="(940,520)" to="(990,520)"/>
-    <wire from="(940,540)" to="(1000,540)"/>
-    <wire from="(940,560)" to="(1000,560)"/>
+    <wire from="(90,1330)" to="(130,1330)"/>
+    <wire from="(920,2050)" to="(920,2220)"/>
+    <wire from="(930,770)" to="(1130,770)"/>
+    <wire from="(940,460)" to="(1020,460)"/>
+    <wire from="(940,480)" to="(1080,480)"/>
+    <wire from="(940,500)" to="(1020,500)"/>
+    <wire from="(940,520)" to="(1080,520)"/>
+    <wire from="(940,540)" to="(1020,540)"/>
+    <wire from="(940,560)" to="(1080,560)"/>
     <wire from="(940,580)" to="(1020,580)"/>
-    <wire from="(940,600)" to="(1010,600)"/>
-    <wire from="(940,620)" to="(1000,620)"/>
-    <wire from="(950,400)" to="(1020,400)"/>
-    <wire from="(950,400)" to="(950,460)"/>
+    <wire from="(940,600)" to="(1080,600)"/>
+    <wire from="(940,620)" to="(1130,620)"/>
+    <wire from="(940,640)" to="(950,640)"/>
+    <wire from="(960,1250)" to="(960,1380)"/>
     <wire from="(960,190)" to="(960,220)"/>
-    <wire from="(960,430)" to="(1020,430)"/>
-    <wire from="(960,430)" to="(960,480)"/>
-    <wire from="(970,460)" to="(1020,460)"/>
-    <wire from="(970,460)" to="(970,500)"/>
-    <wire from="(970,840)" to="(1090,840)"/>
+    <wire from="(960,2000)" to="(960,2220)"/>
+    <wire from="(980,1230)" to="(1070,1230)"/>
     <wire from="(980,210)" to="(1030,210)"/>
-    <wire from="(990,490)" to="(1020,490)"/>
-    <wire from="(990,490)" to="(990,520)"/>
   </circuit>
 </project>
