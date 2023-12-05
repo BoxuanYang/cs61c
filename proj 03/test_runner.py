@@ -8,7 +8,6 @@ import subprocess
 import signal
 import re
 import sys
-import numpy as np
 
 script_dir = os.path.realpath(sys.path[0])
 logisim_location = os.path.join(script_dir, "logisim-evolution.jar")

@@ -212,20 +212,20 @@ end TCL_Generic;
     <comp lib="0" loc="(220,340)" name="Tunnel">
       <a name="label" val="clk"/>
     </comp>
-    <comp lib="0" loc="(250,680)" name="Tunnel">
-      <a name="facing" val="east"/>
-      <a name="label" val="WE"/>
-    </comp>
-    <comp lib="0" loc="(320,700)" name="Tunnel">
-      <a name="facing" val="east"/>
-      <a name="label" val="clk"/>
-    </comp>
-    <comp lib="0" loc="(330,660)" name="Tunnel">
+    <comp lib="0" loc="(480,230)" name="Tunnel">
       <a name="facing" val="east"/>
       <a name="label" val="data"/>
       <a name="width" val="32"/>
     </comp>
-    <comp lib="0" loc="(500,660)" name="Tunnel">
+    <comp lib="0" loc="(510,250)" name="Tunnel">
+      <a name="facing" val="east"/>
+      <a name="label" val="WE"/>
+    </comp>
+    <comp lib="0" loc="(560,270)" name="Tunnel">
+      <a name="facing" val="east"/>
+      <a name="label" val="clk"/>
+    </comp>
+    <comp lib="0" loc="(640,230)" name="Tunnel">
       <a name="label" val="tohost"/>
       <a name="width" val="32"/>
     </comp>
@@ -240,7 +240,7 @@ end TCL_Generic;
       <a name="output" val="true"/>
       <a name="width" val="32"/>
     </comp>
-    <comp lib="4" loc="(390,630)" name="Register">
+    <comp lib="4" loc="(560,200)" name="Register">
       <a name="appearance" val="logisim_evolution"/>
       <a name="width" val="32"/>
     </comp>
@@ -263,10 +263,9 @@ end TCL_Generic;
     <wire from="(220,240)" to="(220,260)"/>
     <wire from="(220,300)" to="(220,320)"/>
     <wire from="(220,360)" to="(220,380)"/>
-    <wire from="(250,680)" to="(390,680)"/>
-    <wire from="(320,700)" to="(390,700)"/>
-    <wire from="(330,660)" to="(390,660)"/>
-    <wire from="(450,660)" to="(500,660)"/>
+    <wire from="(480,230)" to="(560,230)"/>
+    <wire from="(510,250)" to="(560,250)"/>
+    <wire from="(620,230)" to="(640,230)"/>
     <wire from="(70,100)" to="(220,100)"/>
     <wire from="(70,100)" to="(70,380)"/>
     <wire from="(70,380)" to="(220,380)"/>
