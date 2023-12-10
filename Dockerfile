@@ -16,6 +16,7 @@ RUN apt-get update && apt-get install -y \
 
 WORKDIR /cs61c 
 
+
 # 运行这个docker，只需要执行如下命令：
 #docker build -t cs61c-image .
 #docker run -v C:/users/kevin/projects/cs61c:/cs61c -it cs61c-image
