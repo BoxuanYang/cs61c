@@ -59,6 +59,46 @@ void rand_matrix(matrix *result, unsigned int seed, double low, double high) {
  */
 int allocate_matrix(matrix **mat, int rows, int cols) {
     /* TODO: YOUR CODE HERE */
+
+    mat = (struct matrix**) malloc(sizeof(struct matrix *));
+    if(mat == NULL) return -1;
+
+    // 分配内存给指针所指向的结构体
+    *mat = (struct matrix*) malloc(sizeof(struct matrix));
+    if(*mat == NULL) return -1;
+
+    // 设定行列数
+    (*mat)->rows = rows;
+    (*mat)->cols = cols;
+
+    // 为data字段分配内存。data是一个二维数组，因此需要两步
+    (*mat)->data = (double **) malloc(rows * sizeof(double**));
+    if((*mat)->data == NULL) {
+        // 处理内存分配失败
+        free(*mat);
+        free(mat);
+        return -1;
+    }
+
+    for(int i = 0; i < rows; i++) {
+        (*mat)->data[i] = (double *) malloc(cols * sizeof(double));
+        if((*mat)->data[i] == NULL) {
+            // 处理内存分配失败
+            for(int j = 0; j < i; j++) {
+                free((*mat)->data[j]);
+            }
+            free((*mat)->data);
+            free(*mat);
+            free(mat);
+            return -1;
+        }
+    }
+
+    
+
+    return 0;
+
+
 }
 
 /*
@@ -71,6 +111,21 @@ int allocate_matrix(matrix **mat, int rows, int cols) {
 int allocate_matrix_ref(matrix **mat, matrix *from, int row_offset, int col_offset,
                         int rows, int cols) {
     /* TODO: YOUR CODE HERE */
+
+    int allocation_result = allocate_matrix(mat, rows, cols);
+
+    if(allocation_result != 0) return -1;
+
+    double **from_matrix = from->data;
+    double **mat_matrix = (*mat)->data;
+
+    for(int i = 0; i < rows; i++){
+        for(int j = 0; j < cols; j++){
+            mat_matrix[i][j] = from_matrix[i + row_offset][j + col_offset];
+        }
+    }
+
+    return 0;
 }
 
 /*
@@ -82,6 +137,16 @@ int allocate_matrix_ref(matrix **mat, matrix *from, int row_offset, int col_offs
  */
 void deallocate_matrix(matrix *mat) {
     /* TODO: YOUR CODE HERE */
+    int rows = mat->rows;
+
+    if(mat->ref_cnt != 1) return;
+
+    for(int i = 0; i < rows; i++){
+        free(mat->data[i]);
+    }
+
+    free(mat);
+
 }
 
 /*
@@ -117,7 +182,7 @@ void fill_matrix(matrix *mat, double val) {
     double **data = mat->data;
 
     for(int i = 0; i < rows; i++){
-        for(int j = 0; k < cols; j++)
+        for(int j = 0; j < cols; j++)
             data[i][j] = val;       
     }
 }
@@ -133,7 +198,7 @@ int add_matrix(matrix *result, matrix *mat1, matrix *mat2) {
     double **result_matrix = result->data;
 
     if(mat1->rows != mat2->rows || mat1->cols != mat2->cols 
-    || result->rows != ma1->rows || result->cols != mat1->cols){
+    || result->rows != mat1->rows || result->cols != mat1->cols){
         return -1;
     }
 
@@ -159,7 +224,7 @@ int sub_matrix(matrix *result, matrix *mat1, matrix *mat2) {
     double **result_matrix = result->data;
 
     if(mat1->rows != mat2->rows || mat1->cols != mat2->cols 
-    || result->rows != ma1->rows || result->cols != mat1->cols){
+    || result->rows != mat1->rows || result->cols != mat1->cols){
         return -1;
     }
 
@@ -182,13 +247,13 @@ int sub_matrix(matrix *result, matrix *mat1, matrix *mat2) {
 int mul_matrix(matrix *result, matrix *mat1, matrix *mat2) {
     /* TODO: YOUR CODE HERE */
     double **matrix1 = mat1->data;
-    double **matrix2 = mat2.data;
+    double **matrix2 = mat2->data;
     double **result_matrix = result->data;
 
     int m = result->rows;
     int n = result->cols;
 
-    if(m != mat1->rows|| n != ma2->cols || mat1->cols != mat2->rows)
+    if(m != mat1->rows|| n != mat2->cols || mat1->cols != mat2->rows)
         return -1;
     
 
@@ -218,10 +283,10 @@ int pow_matrix(matrix *result, matrix *mat, int pow) {
         return -1;
     
     for(int i = 0; i < pow; i++){
-        int result;
-        result = mul_matrix(result, mat, mat);
+        int mul_result;
+        mul_result = mul_matrix(result, mat, mat);
 
-        if(result != 0) return -1;
+        if(mul_result != 0) return -1;
     }
 
     return 0;
@@ -233,6 +298,10 @@ int pow_matrix(matrix *result, matrix *mat, int pow) {
  */
 int neg_matrix(matrix *result, matrix *mat) {
     /* TODO: YOUR CODE HERE */
+    double **result_matrix = result->data;
+    double **matrix = mat->data;
+
+
     if(result->rows != mat->rows || result->cols != mat->cols)
         return -1;
     
@@ -241,7 +310,7 @@ int neg_matrix(matrix *result, matrix *mat) {
 
     for(int i = 0; i < rows; i++){
         for(int j = 0; j < cols; j++){
-            result[i][j] = 0 -mat[i][j];
+            result_matrix[i][j] = 0 - matrix[i][j];
         }       
     }
 
@@ -265,7 +334,7 @@ int abs_matrix(matrix *result, matrix *mat) {
 
     for(int i = 0; i < rows; i++){
         for(int j = 0; j < cols; j++){
-            double val = (matrix[i][j] < 0) ? -x : x;
+            double val = (matrix[i][j] < 0) ? -matrix[i][j] : matrix[i][j];
             result_matrix[i][j] = val;
         }       
     }

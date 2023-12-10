@@ -1,6 +1,7 @@
-FROM ubuntu:20.04
+FROM ubuntu:22.04
 COPY . /cs61c/
 RUN apt-get update && apt-get install -y \
+    libcunit1 libcunit1-doc libcunit1-dev
     git \
     pip \
     python3.10 \
