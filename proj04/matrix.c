@@ -90,6 +90,9 @@ void deallocate_matrix(matrix *mat) {
  */
 double get(matrix *mat, int row, int col) {
     /* TODO: YOUR CODE HERE */
+    double **data = mat->data;
+
+    return data[row][col];
 }
 
 /*
@@ -98,6 +101,9 @@ double get(matrix *mat, int row, int col) {
  */
 void set(matrix *mat, int row, int col, double val) {
     /* TODO: YOUR CODE HERE */
+    double **data = mat->data;
+
+    data[row][col] = val;
 }
 
 /*
@@ -105,6 +111,15 @@ void set(matrix *mat, int row, int col, double val) {
  */
 void fill_matrix(matrix *mat, double val) {
     /* TODO: YOUR CODE HERE */
+
+    int rows = mat->rows;
+    int cols = mat->cols;
+    double **data = mat->data;
+
+    for(int i = 0; i < rows; i++){
+        for(int j = 0; k < cols; j++)
+            data[i][j] = val;       
+    }
 }
 
 /*
@@ -113,6 +128,24 @@ void fill_matrix(matrix *mat, double val) {
  */
 int add_matrix(matrix *result, matrix *mat1, matrix *mat2) {
     /* TODO: YOUR CODE HERE */
+    double **matrix1 = mat1->data;
+    double **matrix2 = mat2->data;
+    double **result_matrix = result->data;
+
+    if(mat1->rows != mat2->rows || mat1->cols != mat2->cols 
+    || result->rows != ma1->rows || result->cols != mat1->cols){
+        return -1;
+    }
+
+    int rows = mat1->rows;
+    int cols = mat2->cols;
+
+    for(int i = 0; i < rows; i++){
+        for(int j = 0; j < cols; j++)
+            result_matrix[i][j] = matrix1[i][j] + matrix2[i][j];       
+    }
+
+    return 0;
 }
 
 /*
@@ -121,6 +154,24 @@ int add_matrix(matrix *result, matrix *mat1, matrix *mat2) {
  */
 int sub_matrix(matrix *result, matrix *mat1, matrix *mat2) {
     /* TODO: YOUR CODE HERE */
+    double **matrix1 = mat1->data;
+    double **matrix2 = mat2->data;
+    double **result_matrix = result->data;
+
+    if(mat1->rows != mat2->rows || mat1->cols != mat2->cols 
+    || result->rows != ma1->rows || result->cols != mat1->cols){
+        return -1;
+    }
+
+    int rows = mat1->rows;
+    int cols = mat2->cols;
+
+    for(int i = 0; i < rows; i++){
+        for(int j = 0; j < cols; j++)
+            result_matrix[i][j] = matrix1[i][j] - matrix2[i][j];       
+    }
+
+    return 0;
 }
 
 /*
@@ -130,6 +181,30 @@ int sub_matrix(matrix *result, matrix *mat1, matrix *mat2) {
  */
 int mul_matrix(matrix *result, matrix *mat1, matrix *mat2) {
     /* TODO: YOUR CODE HERE */
+    double **matrix1 = mat1->data;
+    double **matrix2 = mat2.data;
+    double **result_matrix = result->data;
+
+    int m = result->rows;
+    int n = result->cols;
+
+    if(m != mat1->rows|| n != ma2->cols || mat1->cols != mat2->rows)
+        return -1;
+    
+
+    
+    for(int i = 0; i < m; i++){
+        for(int k = 0; k < mat1->cols; k++){
+        //for(int j = 0; j < n; j++){
+            for(int j = 0; j < n; j++){
+            //for(int k = 0; k < mat1->cols; k++){
+                result_matrix[i][j] += matrix1[i][k] * matrix2[k][j];
+            }
+        }
+    }
+
+    return 0;
+    
 }
 
 /*
@@ -139,6 +214,17 @@ int mul_matrix(matrix *result, matrix *mat1, matrix *mat2) {
  */
 int pow_matrix(matrix *result, matrix *mat, int pow) {
     /* TODO: YOUR CODE HERE */
+    if(result->rows != mat->rows || result->cols != mat->cols || pow <= 0)
+        return -1;
+    
+    for(int i = 0; i < pow; i++){
+        int result;
+        result = mul_matrix(result, mat, mat);
+
+        if(result != 0) return -1;
+    }
+
+    return 0;
 }
 
 /*
@@ -147,6 +233,19 @@ int pow_matrix(matrix *result, matrix *mat, int pow) {
  */
 int neg_matrix(matrix *result, matrix *mat) {
     /* TODO: YOUR CODE HERE */
+    if(result->rows != mat->rows || result->cols != mat->cols)
+        return -1;
+    
+    int rows = mat->rows;
+    int cols = mat->cols;
+
+    for(int i = 0; i < rows; i++){
+        for(int j = 0; j < cols; j++){
+            result[i][j] = 0 -mat[i][j];
+        }       
+    }
+
+    return 0;
 }
 
 /*
@@ -155,5 +254,23 @@ int neg_matrix(matrix *result, matrix *mat) {
  */
 int abs_matrix(matrix *result, matrix *mat) {
     /* TODO: YOUR CODE HERE */
+    if(result->rows != mat->rows || result->cols != mat->cols)
+        return -1;
+    
+    int rows = mat->rows;
+    int cols = mat->cols;
+
+    double **matrix = mat->data;
+    double **result_matrix = result->data;
+
+    for(int i = 0; i < rows; i++){
+        for(int j = 0; j < cols; j++){
+            double val = (matrix[i][j] < 0) ? -x : x;
+            result_matrix[i][j] = val;
+        }       
+    }
+
+    return 0;
+
 }
 

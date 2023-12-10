@@ -2,7 +2,10 @@ FROM ubuntu:22.04
 COPY . /cs61c/
 RUN apt-get update && apt-get install -y \
     git \
-    python3 \
+    pip \
+    python3.10 \
+    python3.10-venv \
+    python3-dev \
     openjdk-17-jdk \
     gcc \
     gdb \
@@ -13,5 +16,6 @@ RUN apt-get update && apt-get install -y \
 WORKDIR /cs61c 
 
 # 运行这个docker，只需要执行如下命令：
-# docker build -t cs61c-iamge-name .
-# docker run -it --name your-container-name cs61c-iamge-name
+#docker build -t cs61c-image .
+#docker run -v C:/users/kevin/projects/cs61c:/cs61c -it cs61c-image
+

@@ -6,7 +6,7 @@
 #include "omp_apps.h"
 
 int main() {
-	printf("Hello you! \n");
+	printf("Hello youuuuuu! \n");
 	double *x = gen_array(ARRAY_SIZE);
 	double *y = gen_array(ARRAY_SIZE);
 	double serial_result = 0.0;
