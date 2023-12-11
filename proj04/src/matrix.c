@@ -189,20 +189,37 @@ int allocate_matrix_ref(matrix **mat, matrix *from, int offset, int rows, int co
 void fill_matrix(matrix *mat, double val) {
     // Task 1.5 TODO
 
+
     int cols = mat->cols;
     int rows = mat->rows;
 
+    int size = cols * rows;
+
+  //  #pragma omp parallel
+  //  {
+
+   // int thread_id = omp_get_thread_num();
+ //   int thread_num = omp_get_num_threads();
+
+    // compute the size of each chunk 
+  //  int chunk_size = size / thread_num;
+    
+
     __m256d tmp = _mm256_set1_pd(val);  
 
-    int i = 0;
-    for(; i+4 <= rows * cols; i+=4){
+   // int start = thread_id * chunk_size;
+   // int end = (thread_id * chunk_size + chunk_size < size) ? thread_id * chunk_size + chunk_size : size;
+    int i;
+    for(i = 0; i+4 <= size; i+=4){
         _mm256_storeu_pd(mat->data + i, tmp);
     }
 
-    while(i < rows * cols){
+    while(i < size){
         mat->data[i] = val;
         i++;
     }
+
+  //}
 
     return;
 }
@@ -214,35 +231,50 @@ void fill_matrix(matrix *mat, double val) {
  */
 int abs_matrix(matrix *result, matrix *mat) {
     // Task 1.5 TODO
-    double *matrixx = mat->data;
     double *result_matrix = result->data;
 
     int cols = mat->cols;
     int rows = mat->rows;
+    int size = cols * rows;
 
     __m256d minus_ones = _mm256_set1_pd (-1.0);
+   // #pragma omp parallel
+    //{
 
-    int i = 0;
-    for(i; i+4 <= rows * cols; i+=4){
+   // int thread_id = omp_get_thread_num();
+   // int thread_num = omp_get_num_threads();
+
+    // compute the size of each chunk 
+  //  int chunk_size = size / thread_num;
+
+    // compute the boundry of each thread
+  //  int start = thread_id * chunk_size;
+   // int end = (thread_id * chunk_size + chunk_size < size) ? thread_id * chunk_size + chunk_size : size;
+    
+    int i;
+    for(i = 0; i+4 <= size; i+=4){
+    //for(i = start; i+4 <= end; i+=4){
         // load a vector from mat
-        __m256d vector = _mm256_loadu_pd(matrixx+i);
+        __m256d vector = _mm256_loadu_pd(mat->data + i);
 
         // result_matrix[i] = (matrix[i] > 0) ? matrix[i] : -matrix[i];
 
         // multiply the vector with minus one
-        __m256d vector_times_minus_one = _mm256_mul_pd(tmp, minus_ones);
+        __m256d vector_times_minus_one = _mm256_mul_pd(vector, minus_ones);
 
         // take the max vector
-        __m256d tmp = _mm256_max_pd(vector, vector_times_minus_one)
+        __m256d tmp = _mm256_max_pd(vector, vector_times_minus_one);
 
         // store back
         _mm256_storeu_pd(result_matrix + i, tmp);
     }
 
-    while(i < rows*cols){
-        result_matrix[i] = (matrixx[i] > 0) ? matrixx[i] : -matrixx[i];
+    while(i < size){
+        result_matrix[i] = (mat->data[i] > 0) ? mat->data[i] : -mat->data[i];
         i++;
     }
+
+    //}
 
     return 0;
 }
@@ -281,9 +313,23 @@ int add_matrix(matrix *result, matrix *mat1, matrix *mat2) {
 
     int cols = mat1->cols;
     int rows = mat1->rows;
+    int size = rows * cols;
 
-    int i = 0;
-    for(i; i+4 <= rows * cols; i+=4){
+ //   #pragma omp parallel
+   // {
+
+  //  int thread_id = omp_get_thread_num();
+  //  int thread_num = omp_get_num_threads();
+
+    // compute the size of each chunk 
+  //  int chunk_size = size / thread_num;
+
+    // compute the boundry of each thread
+  //  int start = thread_id * chunk_size;
+  //  int end = (thread_id * chunk_size + chunk_size < size) ? thread_id * chunk_size + chunk_size : size;
+    
+    int i;
+    for(i = 0; i+4 <= size; i+=4){
         // load 2 vectors from mat1 and mat2, respectively
         __m256d vector1 = _mm256_loadu_pd(matrix1 + i);
         __m256d vector2 = _mm256_loadu_pd(matrix2 + i);
@@ -297,10 +343,12 @@ int add_matrix(matrix *result, matrix *mat1, matrix *mat2) {
         // result_matrix[i] = matrix1[i] + matrix2[i];        
     }
 
-    while(i < rows * cols){
+    while(i < size){
         result_matrix[i] = matrix1[i] + matrix2[i];  
         i++;
     }
+
+ //   }
 
     return 0;
 }
@@ -338,31 +386,85 @@ int sub_matrix(matrix *result, matrix *mat1, matrix *mat2) {
 int mul_matrix(matrix *result, matrix *mat1, matrix *mat2) {
     // Assume mat1, mat2 and result are different
     // Task 1.6 TODO
-    double *matrix1 = mat1->data;
-    double *matrix2 = mat2->data;
-    double *result_matrix = result->data;
+    
+
+    // Transpose mat2
+
+    // This is a mat2->cols by mat2->rows matrix
+    double *new_data = (double *) malloc(mat2->rows * mat2->cols * sizeof(double));
+
+    for(int i = 0; i < mat2->cols; i++){
+        for(int j = 0; j < mat2->rows; j++){
+            // new_data[i][j] = mat2->data[j][i]
+            new_data[i * mat2->rows + j] = mat2->data[j * mat2->cols + i];
+        }
+    }
+
+    free(mat2->data);
+    mat2->data = new_data;
+
+    int tmp = mat2->rows;
+    mat2->rows = mat2->cols;
+    mat2->cols = tmp;
+
 
     int cols = result->cols;
     int rows = result->rows;
 
-    int counts = mat1->cols;
+    int n = mat1->cols;
 
-    for(int i = 0; i < rows; i++){  // by row
+    /*#pragma omp parallel
+    {
+
+    int thread_id = omp_get_thread_num();
+    int thread_num = omp_get_num_threads();
+
+    // compute the size of each chunk 
+    int chunk_size = rows / thread_num;
+
+    // compute the boundry of each thread
+    int start_rows = thread_id * chunk_size;
+    int end_rows = (thread_id * chunk_size + chunk_size < rows) ? thread_id * chunk_size + chunk_size : rows;
+    
+    */
+    int i;
+    // Do the matrix multiplication
+    for(i = 0; i < rows; i++){  // by row
         for(int j = 0; j < cols; j++){        // by column 
-            int tmp = 0;  // should be result_matrix[i][j]
 
-            for(int k = 0; k < counts; k++){
-                //result_matrix[i][j] += matrix1[i][k] * matrix2[k][j];
-                 tmp += matrix1[i * counts + k] * matrix2[k * cols + j];
+            int k;
+            __m256d summ = _mm256_set1_pd(0.0);
+            double results[4];
 
+            //result_matrix[i][j] += matrix1[i][k] * matrix2[k][j];
+            for(k = 0; k+4 <= n; k+=4){
                  // load 2 vectors from mat1 and mat2, respectively
+                 __m256d vector1 = _mm256_loadu_pd(mat1->data + i * mat1->cols + k);
+                 __m256d vector2 = _mm256_loadu_pd(mat2->data + j * mat2->cols + k);
 
                  // multiply these 2 vectors
+                 __m256d product = _mm256_mul_pd(vector1, vector2);
+
+                 // add the product to summ
+                 summ = _mm256_add_pd(summ, product);
             }
 
-            result_matrix[i * cols + j] = tmp;
+            _mm256_storeu_pd(results, summ);
+
+            while(k < n){
+                //result_matrix[i][j] += matrix1[i][k] * matrix2[j][k];
+                results[0] += mat1->data[i * mat1->cols + k] * mat2->data[j * mat2->cols + k];
+                k++;
+            }
+
+            result->data[i * cols + j] = 0;
+            for(int k = 0; k < 4; k++){
+                result->data[i * cols + j] += results[k];
+            }
         }
     }
+
+    //}
 
     return 0;
 

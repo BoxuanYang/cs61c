@@ -1,0 +1,17 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Debug draft.c",
+            "type": "cppvsdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/cs61c/proj04/draft.c",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "C:/Users/kevin/cs61c/proj04",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb"
+        }
+    ]
+}
