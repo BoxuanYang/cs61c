@@ -50,15 +50,18 @@ void rand_matrix(matrix *result, unsigned int seed, double low, double high) {
 /*
  * Allocate space for a matrix struct pointed to by the double pointer mat with
  * `rows` rows and `cols` columns. You should also allocate memory for the data array
- * and initialize all entries to be zeros. Remember to set all fieds of the matrix struct.
- * `parent` should be set to NULL to indicate that this matrix is not a slice.
- * You should return -1 if either `rows` or `cols` or both have invalid values, or if any
- * call to allocate memory in this function fails. If you don't set python error messages here upon
- * failure, then remember to set it in numc.c.
+ * and initialize all entries to be zeros. Remember to set all fieds of the matrix
+ *  struct. 'parent` should be set to NULL to indicate that this matrix is not a
+ *  slice.
+ * 
+ * You should return -1 if either `rows` or `cols` or both have invalid values, 
+ * or if any call to allocate memory in this function fails. If you don't set 
+ * python error messages here upon failure, then remember to set it in numc.c.
  * Return 0 upon success and non-zero upon failure.
  */
 int allocate_matrix(matrix **mat, int rows, int cols) {
     /* TODO: YOUR CODE HERE */
+    if(rows <= 0 || cols <= 0) return -1;
 
     mat = (struct matrix**) malloc(sizeof(struct matrix *));
     if(mat == NULL) return -1;
@@ -71,8 +74,14 @@ int allocate_matrix(matrix **mat, int rows, int cols) {
     (*mat)->rows = rows;
     (*mat)->cols = cols;
 
+    // 设定 is_1d，ref_cnt和matrix *parent
+    (*mat)->is_1d = (rows == 1) || (cols == 1);
+    (*mat)->parent = NULL;
+    (*mat)->ref_cnt = 1;
+
+
     // 为data字段分配内存。data是一个二维数组，因此需要两步
-    (*mat)->data = (double **) malloc(rows * sizeof(double**));
+    (*mat)->data = (double **) malloc(rows * sizeof(double*));
     if((*mat)->data == NULL) {
         // 处理内存分配失败
         free(*mat);
@@ -91,6 +100,13 @@ int allocate_matrix(matrix **mat, int rows, int cols) {
             free(*mat);
             free(mat);
             return -1;
+        }
+    }
+
+    // Initialize 0
+    for(int i = 0; i < rows; i++) {
+        for(int j = 0; j < cols; j++){
+            (*mat)->data[i][j] = 0;
         }
     }
 

@@ -1,12 +1,8 @@
-FROM ubuntu:22.04
+FROM ubuntu:18.04
 COPY . /cs61c/
 RUN apt-get update && apt-get install -y \
-    libcunit1 libcunit1-doc libcunit1-dev
     git \
-    pip \
-    python3.10 \
-    python3.10-venv \
-    python3-dev \
+    python3 \
     openjdk-17-jdk \
     gcc \
     gdb \
