@@ -17,3 +17,8 @@ WORKDIR /cs61c
 #docker build -t cs61c-image .
 #docker run -v C:/users/kevin/projects/cs61c:/cs61c -it cs61c-image
 
+# apt-get update
+# apt install libcunit1 libcunit1-doc libcunit1-dev python3-dev  
+
+
+

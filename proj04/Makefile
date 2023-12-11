@@ -1,7 +1,7 @@
 CC = gcc
 CFLAGS = -g -Wall -std=c99 -fopenmp -mavx -mfma -pthread
 LDFLAGS = -fopenmp
-CUNIT = -lcunit
+CUNIT = -L/home/ff/cs61c/cunit/install/lib -I/home/ff/cs61c/cunit/install/include -lcunit
 PYTHON = -I/usr/include/python3.6 -lpython3.6m
 
 install:
@@ -21,10 +21,9 @@ clean:
 	rm -rf build
 	rm -rf __pycache__
 
-
 test:
 	rm -f test
-	$(CC) $(CFLAGS) mat_test.c matrix.c -o test $(LDFLAGS) $(CUNIT) $(PYTHON)
+	$(CC) $(CFLAGS) tests/mat_test.c src/matrix.c -o test $(LDFLAGS) $(CUNIT) $(PYTHON)
 	./test
 
 .PHONY: test
