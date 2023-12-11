@@ -21,9 +21,10 @@ clean:
 	rm -rf build
 	rm -rf __pycache__
 
+
 test:
 	rm -f test
 	$(CC) $(CFLAGS) mat_test.c matrix.c -o test $(LDFLAGS) $(CUNIT) $(PYTHON)
-	#./test
+	./test
 
 .PHONY: test
