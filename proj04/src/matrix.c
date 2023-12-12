@@ -261,7 +261,7 @@ int abs_matrix(matrix *result, matrix *mat) {
     int start = thread_id * chunk_size;
     int end = ((thread_id + 1) * chunk_size < size) ? (thread_id + 1) * chunk_size: size;
 
-    printf("Start for thread_id %d is: %d , end index is: %d, thread_num is: %d \n", thread_id, start, end, thread_num);
+    //printf("Start for thread_id %d is: %d , end index is: %d, thread_num is: %d \n", thread_id, start, end, thread_num);
 
     if(size <= thread_num){
         int upper = (thread_id+1 < size) ? thread_id+1 : size;
@@ -553,43 +553,63 @@ int mul_matrix(matrix *result, matrix *mat1, matrix *mat2) {
 int pow_matrix(matrix *result, matrix *mat, int pow) {
     // Task 1.6 TODO
 
+
+    // make a replica of mat, stored in tmp
     struct matrix *tmp = (struct matrix *) malloc(sizeof(struct matrix));
     tmp->rows = mat->rows;
     tmp->cols = mat->cols;
     tmp->data = (double *) malloc(mat->rows * mat->cols * sizeof(double));
-    for(int i = 0; i < mat->rows * mat->cols; i++){
-        tmp->data[i] = mat->data[i];
-    }
+    
 
-    int sign = 0;
-    for(int i = 0; i < pow - 1; i++){
-        if(sign == 0){
-            int mul_result = mul_matrix(result, tmp, mat);
-            if(mul_result != 0) return -1;
+    // Then, take a square of mat, store it in reslt
+    struct matrix *square = (struct matrix *) malloc(sizeof(struct matrix));
+    square->rows = mat->rows;
+    square->cols = mat->cols;
+    square->data = (double *) malloc(mat->rows * mat->cols * sizeof(double));
 
-            sign = 1;
-        }
+    int square_result = mul_matrix(square, mat, mat);
+    if(square_result != 0) return -1;
+    
 
-        else{
-            int mul_result = mul_matrix(tmp, result, mat);
-            if(mul_result != 0) return -1;
-            sign = 0;
-        }
-        
-
-        
-    }
-
-    if(sign == 0){
+    if(pow == 1){
+        // copy values of mat to result
         for(int i = 0; i < mat->rows * mat->cols; i++){
-            result->data[i] = tmp->data[i];
+            result->data[i] = mat->data[i];
         }
     }
+
+    else if(pow % 2 == 0){
+        // if pow is even, then return exp_by_squaring(x * x, n / 2);
+        int pow_result = pow_matrix(result, square, pow/2);
+        if(pow_result != 0) return -1;
+        
+    }
+
+    else{
+        // if pow is odd, then return x * exp_by_squaring(x * x, (n - 1) / 2);
+
+        // compute exp_by_squaring(x * x, (n - 1) / 2);
+        int pow_result = pow_matrix(result, square, (pow-1)/2);
+        if(pow_result != 0) return -1;
+
+        // copy result to tmp
+        for(int i = 0; i < mat->rows * mat->cols; i++){
+            tmp->data[i] = result->data[i];
+        }
+
+        // compute x * exp_by_squaring(x * x, (n - 1) / 2); 
+        int mul_result = mul_matrix(result, tmp, mat);
+        if(mul_result != 0) return -1;
+
+    }
+
 
     free(tmp->data);
     free(tmp);
-
+    free(square->data);
+    free(square);
+    return 0; 
    
-
-    return 0;
 }
+
+
