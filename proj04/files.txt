@@ -1,0 +1,2 @@
+/cs61c/proj04/.venv/lib/python3.6/site-packages/numc.cpython-36m-x86_64-linux-gnu.so
+/cs61c/proj04/.venv/lib/python3.6/site-packages/numc-0.0.1.egg-info

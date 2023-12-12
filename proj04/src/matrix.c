@@ -195,31 +195,41 @@ void fill_matrix(matrix *mat, double val) {
 
     int size = cols * rows;
 
-  //  #pragma omp parallel
-  //  {
+    #pragma omp parallel
+    {
 
-   // int thread_id = omp_get_thread_num();
- //   int thread_num = omp_get_num_threads();
+    int thread_id = omp_get_thread_num();
+    int thread_num = omp_get_num_threads();
 
     // compute the size of each chunk 
-  //  int chunk_size = size / thread_num;
+    int chunk_size = size / thread_num;
     
 
     __m256d tmp = _mm256_set1_pd(val);  
 
-   // int start = thread_id * chunk_size;
-   // int end = (thread_id * chunk_size + chunk_size < size) ? thread_id * chunk_size + chunk_size : size;
+    if(size <= thread_num){
+        int i = thread_id;
+
+        if(i < size){
+            mat->data[i] = val;
+        }
+    }
+
+    else{
+    int start = thread_id * chunk_size;
+    int end = ((thread_id  + 1) * chunk_size < size) ? (thread_id + 1) * chunk_size: size;
     int i;
-    for(i = 0; i+4 <= size; i+=4){
+    for(i = start; i+4 <= end; i+=4){
         _mm256_storeu_pd(mat->data + i, tmp);
     }
 
-    while(i < size){
+    while(i < end){
         mat->data[i] = val;
         i++;
     }
+    }
 
-  //}
+  }
 
     return;
 }
@@ -238,21 +248,32 @@ int abs_matrix(matrix *result, matrix *mat) {
     int size = cols * rows;
 
     __m256d minus_ones = _mm256_set1_pd (-1.0);
-   // #pragma omp parallel
-    //{
+    #pragma omp parallel
+    {
 
-   // int thread_id = omp_get_thread_num();
-   // int thread_num = omp_get_num_threads();
+    int thread_id = omp_get_thread_num();
+    int thread_num = omp_get_num_threads();
 
     // compute the size of each chunk 
-  //  int chunk_size = size / thread_num;
+    int chunk_size = size / thread_num;
 
     // compute the boundry of each thread
-  //  int start = thread_id * chunk_size;
-   // int end = (thread_id * chunk_size + chunk_size < size) ? thread_id * chunk_size + chunk_size : size;
-    
+    int start = thread_id * chunk_size;
+    int end = ((thread_id + 1) * chunk_size < size) ? (thread_id + 1) * chunk_size: size;
+
+    printf("Start for thread_id %d is: %d , end index is: %d, thread_num is: %d \n", thread_id, start, end, thread_num);
+
+    if(size <= thread_num){
+        int upper = (thread_id+1 < size) ? thread_id+1 : size;
+        for(int i = thread_id; i<upper; i++){
+            result_matrix[i] = (mat->data[i] > 0) ? mat->data[i] : -mat->data[i];
+            
+        }
+    }
+
+    else{
     int i;
-    for(i = 0; i+4 <= size; i+=4){
+    for(i = start; i+4 <= end; i+=4){
     //for(i = start; i+4 <= end; i+=4){
         // load a vector from mat
         __m256d vector = _mm256_loadu_pd(mat->data + i);
@@ -269,12 +290,13 @@ int abs_matrix(matrix *result, matrix *mat) {
         _mm256_storeu_pd(result_matrix + i, tmp);
     }
 
-    while(i < size){
+    while(i < end){
         result_matrix[i] = (mat->data[i] > 0) ? mat->data[i] : -mat->data[i];
         i++;
     }
+    }
 
-    //}
+    }
 
     return 0;
 }
@@ -315,21 +337,29 @@ int add_matrix(matrix *result, matrix *mat1, matrix *mat2) {
     int rows = mat1->rows;
     int size = rows * cols;
 
- //   #pragma omp parallel
-   // {
+    #pragma omp parallel
+    {
 
-  //  int thread_id = omp_get_thread_num();
-  //  int thread_num = omp_get_num_threads();
+    int thread_id = omp_get_thread_num();
+    int thread_num = omp_get_num_threads();
 
     // compute the size of each chunk 
-  //  int chunk_size = size / thread_num;
+    int chunk_size = size / thread_num;
 
     // compute the boundry of each thread
-  //  int start = thread_id * chunk_size;
-  //  int end = (thread_id * chunk_size + chunk_size < size) ? thread_id * chunk_size + chunk_size : size;
-    
+    int start = thread_id * chunk_size;
+    int end = (thread_id * chunk_size + chunk_size < size) ? thread_id * chunk_size + chunk_size : size;
+
+    int upper = (thread_id+1 < size) ? thread_id+1 : size;
+    if(size <= thread_num){
+        for(int i = thread_id; i < upper; i++){
+            result_matrix[i] = matrix1[i] + matrix2[i];
+        }
+    }
+
+    else{
     int i;
-    for(i = 0; i+4 <= size; i+=4){
+    for(i = start; i+4 <= end; i+=4){
         // load 2 vectors from mat1 and mat2, respectively
         __m256d vector1 = _mm256_loadu_pd(matrix1 + i);
         __m256d vector2 = _mm256_loadu_pd(matrix2 + i);
@@ -343,12 +373,13 @@ int add_matrix(matrix *result, matrix *mat1, matrix *mat2) {
         // result_matrix[i] = matrix1[i] + matrix2[i];        
     }
 
-    while(i < size){
+    while(i < end){
         result_matrix[i] = matrix1[i] + matrix2[i];  
         i++;
     }
+    }
 
- //   }
+    }
 
     return 0;
 }
@@ -413,7 +444,7 @@ int mul_matrix(matrix *result, matrix *mat1, matrix *mat2) {
 
     int n = mat1->cols;
 
-    /*#pragma omp parallel
+    #pragma omp parallel
     {
 
     int thread_id = omp_get_thread_num();
@@ -425,11 +456,52 @@ int mul_matrix(matrix *result, matrix *mat1, matrix *mat2) {
     // compute the boundry of each thread
     int start_rows = thread_id * chunk_size;
     int end_rows = (thread_id * chunk_size + chunk_size < rows) ? thread_id * chunk_size + chunk_size : rows;
+
+    if(rows <= thread_num){
+        int i = thread_id; // only do computation for one row
+        
+    // Do the matrix multiplication
+        if(thread_id < rows){
+            for(int j = 0; j < cols; j++){        // by column 
+                int k;
+                 __m256d summ = _mm256_set1_pd(0.0);
+                double results[4];
+
+                //result_matrix[i][j] += matrix1[i][k] * matrix2[k][j];
+                for(k = 0; k+4 <= n; k+=4){
+                    // load 2 vectors from mat1 and mat2, respectively
+                    __m256d vector1 = _mm256_loadu_pd(mat1->data + i * mat1->cols + k);
+                    __m256d vector2 = _mm256_loadu_pd(mat2->data + j * mat2->cols + k);
+
+                    // multiply these 2 vectors
+                    __m256d product = _mm256_mul_pd(vector1, vector2);
+
+                    // add the product to summ
+                    summ = _mm256_add_pd(summ, product);
+                }
+
+            _mm256_storeu_pd(results, summ);
+
+            while(k < n){
+                //result_matrix[i][j] += matrix1[i][k] * matrix2[j][k];
+                results[0] += mat1->data[i * mat1->cols + k] * mat2->data[j * mat2->cols + k];
+                k++;
+            }
+
+            result->data[i * cols + j] = 0;
+            for(int k = 0; k < 4; k++){
+                result->data[i * cols + j] += results[k];
+            }
+        }
+    }  
     
-    */
+    }
+    
+
+    else{
     int i;
     // Do the matrix multiplication
-    for(i = 0; i < rows; i++){  // by row
+    for(i = start_rows; i < end_rows; i++){  // by row
         for(int j = 0; j < cols; j++){        // by column 
 
             int k;
@@ -463,8 +535,9 @@ int mul_matrix(matrix *result, matrix *mat1, matrix *mat2) {
             }
         }
     }
+    }
 
-    //}
+    }
 
     return 0;
 
