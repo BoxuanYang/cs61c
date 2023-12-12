@@ -573,16 +573,14 @@ int pow_matrix(matrix *result, matrix *mat, int pow) {
 
     if(pow == 1){
         // copy values of mat to result
-        for(int i = 0; i < mat->rows * mat->cols; i++){
-            result->data[i] = mat->data[i];
-        }
+        for(int i = 0; i < mat->rows * mat->cols; i++)
+            result->data[i] = mat->data[i];      
     }
 
     else if(pow % 2 == 0){
         // if pow is even, then return exp_by_squaring(x * x, n / 2);
         int pow_result = pow_matrix(result, square, pow/2);
         if(pow_result != 0) return -1;
-        
     }
 
     else{
@@ -593,10 +591,9 @@ int pow_matrix(matrix *result, matrix *mat, int pow) {
         if(pow_result != 0) return -1;
 
         // copy result to tmp
-        for(int i = 0; i < mat->rows * mat->cols; i++){
+        for(int i = 0; i < mat->rows * mat->cols; i++)
             tmp->data[i] = result->data[i];
-        }
-
+        
         // compute x * exp_by_squaring(x * x, (n - 1) / 2); 
         int mul_result = mul_matrix(result, tmp, mat);
         if(mul_result != 0) return -1;
